@@ -31,7 +31,7 @@
 ## 연결된 도구
 - Gmail 커넥터: 흐름 A에서 메일 읽기. 메일을 보내거나 답장하지 않는다.
 - PlayMCP 카카오톡 나챗방(KakaotalkChat-MemoChat): 흐름 B 브리핑 발송 전용.
-- gh CLI(~/.local/bin/gh, LillyPark99 로그인): 커밋·push (저장소 LillyPark99/LillyWorkspace1). GitHub Pages는 아직 켜지 않았다.
+- gh CLI(~/.local/bin/gh, LillyPark99 로그인): 커밋·push (저장소 LillyPark99/LillyWorkspace1). GitHub Pages: https://lillypark99.github.io/LillyWorkspace1/
 - Google Calendar 커넥터(연결되어 있을 때만): 흐름 B의 "다가오는 일정"에 오늘~7일 일정을 넣는다. 일정을 만들거나 바꾸지 않는다.
 - Google Drive 커넥터(연결되어 있을 때만): 사용자가 요청하면 파일을 data/raw/로 가져와 대시보드에 쓴다.
 - Slack 커넥터(연결되어 있을 때만): 흐름 A에서 마지막 처리 시점 이후 메시지를 읽는다.
@@ -46,4 +46,4 @@
 
 ## 저장소
 - 이 폴더는 GitHub LillyPark99/LillyWorkspace1 (공개 저장소)에 연결되어 있다. push한 내용은 누구나 볼 수 있다.
-- 공부 노트(중국어·일본어·영어)는 여기 두지 않는다. 별도 폴더 ~/Desktop/공부위키 (저장소 Lilly1, 비공개)에서 관리한다.
+- 공부 노트(중국어·일본어·영어)는 여기 두지 않는다. 별도 폴더 ~/Desktop/공부위키 (저장소 Lilly1, 공개)에서 관리한다.

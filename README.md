@@ -6,7 +6,7 @@
 
 ## 바로 보기
 
-| 무엇 | 링크 (GitHub Pages를 켜면 열림) |
+| 무엇 | 링크 |
 |---|---|
 | 첫 화면 (위키·대시보드 메뉴) | https://lillypark99.github.io/LillyWorkspace1/ |
 | 업무 위키 | https://lillypark99.github.io/LillyWorkspace1/output/wiki.html |
