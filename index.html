@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>업무허브</title>
+<meta name="description" content="업무 위키와 데이터 분석 메뉴">
+<style>
+:root {
+  --bg: #fafaf8; --panel: #ffffff; --text: #1f1f1d; --muted: #6b6a66;
+  --line: #dddbd4; --accent: #2f5fb3; --accent-bg: #e6edf9;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1b1b1a; --panel: #242422; --text: #e9e7e2; --muted: #a09d96;
+    --line: #3a3936; --accent: #8db1f0; --accent-bg: #2a3448;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+.wrap { max-width: 880px; margin: 0 auto; padding: 48px 20px 64px; }
+h1 { font-size: 28px; margin: 0 0 4px; letter-spacing: -0.01em; }
+.muted { color: var(--muted); font-size: 13px; }
+.sep { font-size: 13px; color: var(--muted); font-weight: 600; margin: 32px 0 0; letter-spacing: .02em; }
+.menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 12px; }
+.card {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+  padding: 22px 22px 18px; display: flex; flex-direction: column;
+}
+.card h2 { font-size: 20px; margin: 0; }
+.card p { margin: 6px 0 14px; color: var(--muted); }
+.open {
+  align-self: flex-start; margin-top: auto; padding: 8px 16px; border-radius: 8px;
+  background: var(--accent); color: var(--bg); text-decoration: none; font-weight: 600;
+}
+.open:hover { opacity: .9; }
+.stat { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+.stat b { color: var(--text); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+.chip {
+  font-size: 13px; padding: 3px 10px; border-radius: 999px; text-decoration: none;
+  background: var(--accent-bg); color: var(--accent);
+}
+.rows { display: grid; gap: 8px; margin-bottom: 18px; }
+.row {
+  display: grid; gap: 2px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px;
+  color: inherit; text-decoration: none;
+}
+.row:hover, .card:hover .open { border-color: var(--accent); }
+.rt { font-weight: 600; color: var(--accent); }
+.rd { font-size: 13px; }
+.rm { font-size: 12px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>업무허브</h1>
+<div class="muted">메뉴를 골라 들어가세요 · 메뉴 갱신 2026-11-24 15:36</div>
+
+<h2 class="sep">업무</h2>
+<div class="menu">
+  <section class="card">
+    <h2>업무 위키</h2>
+    <p>메모·메일·대화에서 모은 업무 지식</p>
+    <div class="stat">페이지 <b>13</b>개 · 빌드 2026-11-24 15:36</div>
+    <div class="chips"><a class="chip" href="output/wiki.html">계정·시스템 <b>2</b></a><a class="chip" href="output/wiki.html">업무 절차 <b>2</b></a><a class="chip" href="output/wiki.html">사람·담당자 <b>3</b></a><a class="chip" href="output/wiki.html">용어·약어 <b>4</b></a><a class="chip" href="output/wiki.html">프로젝트 <b>1</b></a><a class="chip" href="output/wiki.html">업무 일지 <b>1</b></a></div>
+    <a class="open" href="output/wiki.html">위키 열기</a>
+  </section>
+
+  <section class="card">
+    <h2>데이터 분석</h2>
+    <p>data/ 의 엑셀·CSV로 만든 대시보드</p>
+    <div class="stat">대시보드 <b>1</b>개</div>
+    <div class="rows"><a class="row" href="output/dashboards/sample_sales.html"><span class="rt">판매 대시보드</span><span class="rd">가상 판매 데이터: 월별 매출 추이, 품목·거래처 비중</span><span class="rm">갱신 2026-11-24 14:35</span></a></div>
+    <a class="open" href="output/dashboards/index.html">대시보드 목록</a>
+  </section>
+</div>
+
+</div>
+</body>
+</html>

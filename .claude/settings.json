@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/scripts/auto_sync.sh\"",
+            "timeout": 180,
+            "statusMessage": "자료 변경 확인·자동 커밋 중"
+          }
+        ]
+      }
+    ]
+  }
+}

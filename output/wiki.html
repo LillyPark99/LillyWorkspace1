@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>업무 위키</title>
+<style>
+:root {
+  --bg: #fafaf8; --panel: #f1f0ec; --text: #1f1f1d; --muted: #6b6a66;
+  --line: #dddbd4; --accent: #2f5fb3; --accent-bg: #e6edf9; --missing: #a3a19b;
+  --mark: #fff1a8;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1b1b1a; --panel: #242422; --text: #e9e7e2; --muted: #a09d96;
+    --line: #3a3936; --accent: #8db1f0; --accent-bg: #2a3448; --missing: #6d6b66;
+    --mark: #5a4d14;
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: var(--bg); color: var(--text);
+  font: 15px/1.65 -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  display: grid; grid-template-columns: 260px 1fr; grid-template-rows: auto 1fr;
+}
+header {
+  grid-column: 1 / -1; display: flex; gap: 16px; align-items: center;
+  padding: 12px 20px; border-bottom: 1px solid var(--line); background: var(--panel);
+}
+#hub { color: var(--muted); text-decoration: none; font-size: 13px; white-space: nowrap; }
+#hub:hover { color: var(--accent); }
+header h1 { font-size: 17px; margin: 0; white-space: nowrap; cursor: pointer; }
+#q {
+  flex: 1; max-width: 420px; padding: 7px 12px; font: inherit; color: var(--text);
+  background: var(--bg); border: 1px solid var(--line); border-radius: 8px;
+}
+#q:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+#built { color: var(--muted); font-size: 12px; margin-left: auto; white-space: nowrap; }
+nav {
+  overflow-y: auto; padding: 12px 10px 40px; border-right: 1px solid var(--line); background: var(--panel);
+}
+nav h2 {
+  font-size: 12px; color: var(--muted); margin: 16px 10px 4px; font-weight: 600; letter-spacing: .02em;
+}
+nav a {
+  display: block; padding: 4px 10px; border-radius: 6px; color: var(--text);
+  text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+nav a:hover { background: var(--line); }
+nav a.on { background: var(--accent-bg); color: var(--accent); font-weight: 600; }
+nav .hit { display: block; font-size: 12px; color: var(--muted); white-space: normal; }
+nav .empty { padding: 8px 10px; color: var(--muted); }
+main { overflow-y: auto; padding: 28px 40px 80px; }
+article { max-width: 760px; }
+article h1.title { font-size: 26px; margin: 0 0 4px; }
+.meta { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+article h2 { font-size: 18px; margin: 28px 0 8px; padding-bottom: 4px; border-bottom: 1px solid var(--line); }
+article table { border-collapse: collapse; margin: 12px 0; }
+article th, article td { border: 1px solid var(--line); padding: 6px 10px; text-align: left; }
+article th { background: var(--panel); }
+article code { background: var(--panel); padding: 1px 5px; border-radius: 4px; }
+article a { color: var(--accent); }
+a.wl { text-decoration: none; border-bottom: 1px solid currentColor; cursor: pointer; }
+.wl.missing { color: var(--missing); border-bottom: 1px dashed var(--missing); cursor: help; }
+mark { background: var(--mark); color: inherit; }
+@media (max-width: 720px) {
+  body { grid-template-columns: 1fr; grid-template-rows: auto auto 1fr; }
+  #built { display: none; }
+  nav { max-height: 34vh; border-right: 0; border-bottom: 1px solid var(--line); }
+  main { padding: 20px 16px 60px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <a id="hub" href="../index.html" title="업무허브 홈">← 홈</a>
+  <h1 id="home">업무 위키</h1>
+  <input id="q" type="search" placeholder="제목·본문 검색" autocomplete="off">
+  <span id="built"></span>
+</header>
+<nav id="nav"></nav>
+<main><article id="doc"></article></main>
+<script>
+var DATA = {"pages": [{"title": "ERP", "category": "accounts", "updated": "2026-11-24", "order": 1, "html": "<ul>\n<li>주소: (미정)<\/li>\n<li>아이디: (미정)<\/li>\n<li>상태: 계정 발급 대기<\/li>\n<\/ul>\n<h2>기록<\/h2>\n<ul>\n<li>2026-11-24 (메모: 01_입사첫날) 다음 주(12월 첫째 주)에 계정이 나온다고 함<\/li>\n<\/ul>\n<h2>관련<\/h2>\n<ul>\n<li><a class=\"wl\" href=\"#\" data-page=\"IT지원팀\">IT지원팀<\/a><\/li>\n<\/ul>", "text": "주소: (미정) 아이디: (미정) 상태: 계정 발급 대기 기록 2026-11-24 (메모: 01_입사첫날) 다음 주(12월 첫째 주)에 계정이 나온다고 함 관련 IT지원팀"}, {"title": "그룹웨어", "category": "accounts", "updated": "2026-11-24", "order": 1, "html": "<ul>\n<li>주소: gw.hanbit-example.co.kr<\/li>\n<li>아이디: 사번 (2026112)<\/li>\n<li>용도: 결재(품의서 포함), 공지, 근태(연차 신청), 교육, 자원예약(회의실)<\/li>\n<li>문의: <a class=\"wl\" href=\"#\" data-page=\"IT지원팀\">IT지원팀<\/a> 김민수 매니저 (내선 1234)<\/li>\n<\/ul>\n<h2>기록<\/h2>\n<ul>\n<li>2026-11-24 (메모: 01_입사첫날) 아이디는 사번, 첫 로그인 때 비밀번호 변경 필요<\/li>\n<li>2026-11-24 (메모: 01_입사첫날) 결재·공지·근태(연차 신청)는 모두 그룹웨어에서 처리<\/li>\n<li>2026-11-24 (메모: 04_모르는단어) 품의는 결재 메뉴에서 \"품의서\"로 올림<\/li>\n<li>2026-11-24 (메모: 05_할일) 보안교육은 교육 메뉴에서 이수<\/li>\n<li>2026-11-24 (카톡: 영업지원팀) 회의실 예약은 자원예약 메뉴에서 함. 3층 소회의실은 4인용<\/li>\n<li>2026-11-24 (카톡: 영업지원팀) 연차는 근태 &gt; 연차신청 메뉴에서 올림 (자세한 건 <a class=\"wl\" href=\"#\" data-page=\"연차 신청\">연차 신청<\/a>)<\/li>\n<\/ul>\n<h2>관련<\/h2>\n<ul>\n<li><a class=\"wl\" href=\"#\" data-page=\"IT지원팀\">IT지원팀<\/a><\/li>\n<li><a class=\"wl\" href=\"#\" data-page=\"품의\">품의<\/a><\/li>\n<li><a class=\"wl\" href=\"#\" data-page=\"연차 신청\">연차 신청<\/a><\/li>\n<\/ul>", "text": "주소: gw.hanbit-example.co.kr 아이디: 사번 (2026112) 용도: 결재(품의서 포함), 공지, 근태(연차 신청), 교육, 자원예약(회의실) 문의: IT지원팀 김민수 매니저 (내선 1234) 기록 2026-11-24 (메모: 01_입사첫날) 아이디는 사번, 첫 로그인 때 비밀번호 변경 필요 2026-11-24 (메모: 01_입사첫날) 결재·공지·근태(연차 신청)는 모두 그룹웨어에서 처리 2026-11-24 (메모: 04_모르는단어) 품의는 결재 메뉴에서 \"품의서\"로 올림 2026-11-24 (메모: 05_할일) 보안교육은 교육 메뉴에서 이수 2026-11-24 (카톡: 영업지원팀) 회의실 예약은 자원예약 메뉴에서 함. 3층 소회의실은 4인용 2026-11-24 (카톡: 영업지원팀) 연차는 근태 > 연차신청 메뉴에서 올림 (자세한 건 연차 신청 ) 관련 IT지원팀 품의 연차 신청"}, {"title": "목차", "category": "home", "updated": "", "order": 1, "html": "<blockquote>\n<p>정리할 때마다 자동으로 갱신됩니다. 마지막 갱신: 2026-11-24<\/p>\n<\/blockquote>\n<h2>accounts (계정·시스템)<\/h2>\n<ul>\n<li><a class=\"wl\" href=\"#\" data-page=\"그룹웨어\">그룹웨어<\/a><\/li>\n<li><a class=\"wl\" href=\"#\" data-page=\"ERP\">ERP<\/a><\/li>\n<\/ul>\n<h2>work (업무 절차)<\/h2>\n<ul>\n<li><a class=\"wl\" href=\"#\" data-page=\"연차 신청\">연차 신청<\/a><\/li>\n<li><a class=\"wl\" href=\"#\" data-page=\"주간보고\">주간보고<\/a><\/li>\n<\/ul>\n<h2>people (사람·담당자)<\/h2>\n<ul>\n<li><a class=\"wl\" href=\"#\" data-page=\"영업지원팀\">영업지원팀<\/a><\/li>\n<li><a class=\"wl\" href=\"#\" data-page=\"인사팀\">인사팀<\/a><\/li>\n<li><a class=\"wl\" href=\"#\" data-page=\"IT지원팀\">IT지원팀<\/a><\/li>\n<\/ul>\n<h2>terms (용어·약어)<\/h2>\n<ul>\n<li><a class=\"wl\" href=\"#\" data-page=\"견적\">견적<\/a><\/li>\n<li><a class=\"wl\" href=\"#\" data-page=\"월마감\">월마감<\/a><\/li>\n<li><a class=\"wl\" href=\"#\" data-page=\"품의\">품의<\/a><\/li>\n<li><a class=\"wl\" href=\"#\" data-page=\"PO\">PO<\/a><\/li>\n<\/ul>\n<h2>projects (프로젝트)<\/h2>\n<ul>\n<li><a class=\"wl\" href=\"#\" data-page=\"대한상사\">대한상사<\/a><\/li>\n<\/ul>\n<h2>journal (업무 일지)<\/h2>\n<ul>\n<li><a class=\"wl\" href=\"#\" data-page=\"2026-11-24\">2026-11-24<\/a><\/li>\n<\/ul>", "text": "정리할 때마다 자동으로 갱신됩니다. 마지막 갱신: 2026-11-24 accounts (계정·시스템) 그룹웨어 ERP work (업무 절차) 연차 신청 주간보고 people (사람·담당자) 영업지원팀 인사팀 IT지원팀 terms (용어·약어) 견적 월마감 품의 PO projects (프로젝트) 대한상사 journal (업무 일지) 2026-11-24"}, {"title": "2026-11-24", "category": "journal", "updated": "2026-11-24", "order": 1, "html": "<h2>정리한 자료<\/h2>\n<ul>\n<li>메모 5개 (01_입사첫날, 02_팀사람들, 03_주간보고, 04_모르는단어, 05_할일)<\/li>\n<li>Gmail 최근 30일 메일 3건 확인 → 모두 서비스 안내 메일이라 반영할 내용 없음<\/li>\n<li>카톡 '영업지원팀' 방 (11/23~11/24, 메시지 20개) → 잡담 제외, 업무 내용만 반영<\/li>\n<\/ul>\n<h2>오늘 알게 된 것<\/h2>\n<ul>\n<li><a class=\"wl\" href=\"#\" data-page=\"그룹웨어\">그룹웨어<\/a>로 결재·공지·근태·교육을 모두 처리한다. <a class=\"wl\" href=\"#\" data-page=\"ERP\">ERP<\/a> 계정은 다음 주에 나온다.<\/li>\n<li>팀 구성: 박지훈 팀장, 이서연 선임(사수), 정우성 대리 → <a class=\"wl\" href=\"#\" data-page=\"영업지원팀\">영업지원팀<\/a><\/li>\n<li><a class=\"wl\" href=\"#\" data-page=\"주간보고\">주간보고<\/a>는 매주 금요일 17시까지 팀장님께 메일로 낸다.<\/li>\n<li>용어: <a class=\"wl\" href=\"#\" data-page=\"품의\">품의<\/a>, <a class=\"wl\" href=\"#\" data-page=\"PO\">PO<\/a>, <a class=\"wl\" href=\"#\" data-page=\"견적\">견적<\/a>, <a class=\"wl\" href=\"#\" data-page=\"월마감\">월마감<\/a><\/li>\n<li><a class=\"wl\" href=\"#\" data-page=\"연차 신청\">연차 신청<\/a>은 그룹웨어 근태 메뉴에서 최소 3일 전에 올린다. 회의실은 자원예약 메뉴에서 예약한다.<\/li>\n<li>12/3(수) 14시 <a class=\"wl\" href=\"#\" data-page=\"대한상사\">대한상사<\/a> 거래처 미팅에 이서연 선임과 함께 간다.<\/li>\n<li>월별 매출 파일은 공유드라이브 매출 폴더의 월별매출.xlsx이다. (<a class=\"wl\" href=\"#\" data-page=\"월마감\">월마감<\/a>)<\/li>\n<\/ul>\n<h2>새 할 일<\/h2>\n<ul>\n<li>메모에서 6건, 카톡에서 4건 추가 (가장 급한 것: 그룹웨어 비밀번호 변경, 11/27 팀 회의 실적 준비, 11/28 주간보고)<\/li>\n<\/ul>\n<h2>주의<\/h2>\n<ul>\n<li>메모에 그룹웨어 초기 비밀번호가 적혀 있어서 위키에는 저장하지 않았다.<\/li>\n<\/ul>\n<h2>13:58 아침 브리핑 예약 실행<\/h2>\n<ul>\n<li>inbox(memo·kakao) 새 파일 없음, Gmail 마지막 처리(13:53) 이후 새 업무 메일 없음, 슬랙 미연결 → 위키·할 일 변경 없음<\/li>\n<\/ul>", "text": "정리한 자료 메모 5개 (01_입사첫날, 02_팀사람들, 03_주간보고, 04_모르는단어, 05_할일) Gmail 최근 30일 메일 3건 확인 → 모두 서비스 안내 메일이라 반영할 내용 없음 카톡 '영업지원팀' 방 (11/23~11/24, 메시지 20개) → 잡담 제외, 업무 내용만 반영 오늘 알게 된 것 그룹웨어 로 결재·공지·근태·교육을 모두 처리한다. ERP 계정은 다음 주에 나온다. 팀 구성: 박지훈 팀장, 이서연 선임(사수), 정우성 대리 → 영업지원팀 주간보고 는 매주 금요일 17시까지 팀장님께 메일로 낸다. 용어: 품의 , PO , 견적 , 월마감 연차 신청 은 그룹웨어 근태 메뉴에서 최소 3일 전에 올린다. 회의실은 자원예약 메뉴에서 예약한다. 12/3(수) 14시 대한상사 거래처 미팅에 이서연 선임과 함께 간다. 월별 매출 파일은 공유드라이브 매출 폴더의 월별매출.xlsx이다. ( 월마감 ) 새 할 일 메모에서 6건, 카톡에서 4건 추가 (가장 급한 것: 그룹웨어 비밀번호 변경, 11/27 팀 회의 실적 준비, 11/28 주간보고) 주의 메모에 그룹웨어 초기 비밀번호가 적혀 있어서 위키에는 저장하지 않았다. 13:58 아침 브리핑 예약 실행 inbox(memo·kakao) 새 파일 없음, Gmail 마지막 처리(13:53) 이후 새 업무 메일 없음, 슬랙 미연결 → 위키·할 일 변경 없음"}, {"title": "IT지원팀", "category": "people", "updated": "2026-11-24", "order": 1, "html": "<ul>\n<li>담당자: 김민수 매니저 (내선 1234)<\/li>\n<li>맡은 일: 그룹웨어·ERP 계정, 시스템 문제<\/li>\n<\/ul>\n<h2>기록<\/h2>\n<ul>\n<li>2026-11-24 (메모: 01_입사첫날) 그룹웨어 문제는 김민수 매니저에게 문의<\/li>\n<\/ul>\n<h2>관련<\/h2>\n<ul>\n<li><a class=\"wl\" href=\"#\" data-page=\"그룹웨어\">그룹웨어<\/a><\/li>\n<li><a class=\"wl\" href=\"#\" data-page=\"ERP\">ERP<\/a><\/li>\n<\/ul>", "text": "담당자: 김민수 매니저 (내선 1234) 맡은 일: 그룹웨어·ERP 계정, 시스템 문제 기록 2026-11-24 (메모: 01_입사첫날) 그룹웨어 문제는 김민수 매니저에게 문의 관련 그룹웨어 ERP"}, {"title": "영업지원팀", "category": "people", "updated": "2026-11-24", "order": 1, "html": "<table>\n<thead>\n<tr>\n<th>이름<\/th>\n<th>직책<\/th>\n<th>맡은 일<\/th>\n<\/tr>\n<\/thead>\n<tbody>\n<tr>\n<td>박지훈<\/td>\n<td>팀장<\/td>\n<td>결재권자, <a class=\"wl\" href=\"#\" data-page=\"주간보고\">주간보고<\/a> 받음<\/td>\n<\/tr>\n<tr>\n<td>이서연<\/td>\n<td>선임<\/td>\n<td>내 사수, 거래처 <a class=\"wl\" href=\"#\" data-page=\"견적\">견적<\/a> 담당<\/td>\n<\/tr>\n<tr>\n<td>정우성<\/td>\n<td>대리<\/td>\n<td>매출 데이터 정리, <a class=\"wl\" href=\"#\" data-page=\"월마감\">월마감<\/a> 담당<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n<h2>기록<\/h2>\n<ul>\n<li>2026-11-24 (메모: 02_팀사람들) 팀 구성과 담당 업무 확인<\/li>\n<li>2026-11-24 (메모: 04_모르는단어) 견적은 이서연 선임, 월마감은 정우성 대리 담당<\/li>\n<li>2026-11-24 (카톡: 영업지원팀) 신입 온보딩은 이서연 선임이 맡음 (11/23 팀장 지시)<\/li>\n<li>2026-11-24 (카톡: 영업지원팀) 팀 공지는 카톡 '영업지원팀' 방으로 함<\/li>\n<\/ul>\n<h2>관련<\/h2>\n<ul>\n<li><a class=\"wl\" href=\"#\" data-page=\"주간보고\">주간보고<\/a><\/li>\n<li><a class=\"wl\" href=\"#\" data-page=\"인사팀\">인사팀<\/a><\/li>\n<li><a class=\"wl\" href=\"#\" data-page=\"대한상사\">대한상사<\/a><\/li>\n<\/ul>", "text": "이름 직책 맡은 일 박지훈 팀장 결재권자, 주간보고 받음 이서연 선임 내 사수, 거래처 견적 담당 정우성 대리 매출 데이터 정리, 월마감 담당 기록 2026-11-24 (메모: 02_팀사람들) 팀 구성과 담당 업무 확인 2026-11-24 (메모: 04_모르는단어) 견적은 이서연 선임, 월마감은 정우성 대리 담당 2026-11-24 (카톡: 영업지원팀) 신입 온보딩은 이서연 선임이 맡음 (11/23 팀장 지시) 2026-11-24 (카톡: 영업지원팀) 팀 공지는 카톡 '영업지원팀' 방으로 함 관련 주간보고 인사팀 대한상사"}, {"title": "인사팀", "category": "people", "updated": "2026-11-24", "order": 1, "html": "<ul>\n<li>담당자: 최유진 매니저<\/li>\n<li>맡은 일: 입사 서류, 사원증<\/li>\n<\/ul>\n<h2>기록<\/h2>\n<ul>\n<li>2026-11-24 (메모: 02_팀사람들) 입사 서류·사원증 담당은 최유진 매니저<\/li>\n<li>2026-11-24 (메모: 05_할일) 사원증 사진은 최유진 매니저에게 메일로 제출<\/li>\n<\/ul>\n<h2>관련<\/h2>\n<ul>\n<li><a class=\"wl\" href=\"#\" data-page=\"영업지원팀\">영업지원팀<\/a><\/li>\n<\/ul>", "text": "담당자: 최유진 매니저 맡은 일: 입사 서류, 사원증 기록 2026-11-24 (메모: 02_팀사람들) 입사 서류·사원증 담당은 최유진 매니저 2026-11-24 (메모: 05_할일) 사원증 사진은 최유진 매니저에게 메일로 제출 관련 영업지원팀"}, {"title": "대한상사", "category": "projects", "updated": "2026-11-24", "order": 1, "html": "<ul>\n<li>다음 일정: 12/3(수) 14:00 거래처 미팅 (이서연 선임, 나 참석)<\/li>\n<li>자료: 공유드라이브 &gt; 영업지원팀 &gt; 거래처 &gt; 대한상사 (지난 견적서)<\/li>\n<\/ul>\n<h2>기록<\/h2>\n<ul>\n<li>2026-11-24 (카톡: 영업지원팀) 12/3 미팅 공지, 미팅 전까지 지난 견적서 읽어두라는 팀장 지시<\/li>\n<\/ul>\n<h2>관련<\/h2>\n<ul>\n<li><a class=\"wl\" href=\"#\" data-page=\"견적\">견적<\/a><\/li>\n<li><a class=\"wl\" href=\"#\" data-page=\"영업지원팀\">영업지원팀<\/a><\/li>\n<\/ul>", "text": "다음 일정: 12/3(수) 14:00 거래처 미팅 (이서연 선임, 나 참석) 자료: 공유드라이브 > 영업지원팀 > 거래처 > 대한상사 (지난 견적서) 기록 2026-11-24 (카톡: 영업지원팀) 12/3 미팅 공지, 미팅 전까지 지난 견적서 읽어두라는 팀장 지시 관련 견적 영업지원팀"}, {"title": "PO", "category": "terms", "updated": "2026-11-24", "order": 1, "html": "<p>발주서. 거래처에 보내는 주문서.<\/p>\n<h2>기록<\/h2>\n<ul>\n<li>2026-11-24 (메모: 04_모르는단어) 뜻 확인<\/li>\n<\/ul>\n<h2>관련<\/h2>\n<ul>\n<li><a class=\"wl\" href=\"#\" data-page=\"견적\">견적<\/a><\/li>\n<\/ul>", "text": "발주서. 거래처에 보내는 주문서. 기록 2026-11-24 (메모: 04_모르는단어) 뜻 확인 관련 견적"}, {"title": "견적", "category": "terms", "updated": "2026-11-24", "order": 1, "html": "<p>거래처에 가격을 제안하는 문서. 팀 내 담당은 이서연 선임.<\/p>\n<h2>기록<\/h2>\n<ul>\n<li>2026-11-24 (메모: 04_모르는단어) 뜻과 담당자 확인<\/li>\n<li>2026-11-24 (메모: 05_할일) 이서연 선임에게 견적서 샘플 3개 받아 읽어보기로 함<\/li>\n<li>2026-11-24 (카톡: 영업지원팀) 대한상사 지난 견적서는 공유드라이브 &gt; 영업지원팀 &gt; 거래처 &gt; 대한상사 에 있음<\/li>\n<\/ul>\n<h2>관련<\/h2>\n<ul>\n<li><a class=\"wl\" href=\"#\" data-page=\"영업지원팀\">영업지원팀<\/a><\/li>\n<li><a class=\"wl\" href=\"#\" data-page=\"PO\">PO<\/a><\/li>\n<li><a class=\"wl\" href=\"#\" data-page=\"대한상사\">대한상사<\/a><\/li>\n<\/ul>", "text": "거래처에 가격을 제안하는 문서. 팀 내 담당은 이서연 선임. 기록 2026-11-24 (메모: 04_모르는단어) 뜻과 담당자 확인 2026-11-24 (메모: 05_할일) 이서연 선임에게 견적서 샘플 3개 받아 읽어보기로 함 2026-11-24 (카톡: 영업지원팀) 대한상사 지난 견적서는 공유드라이브 > 영업지원팀 > 거래처 > 대한상사 에 있음 관련 영업지원팀 PO 대한상사"}, {"title": "월마감", "category": "terms", "updated": "2026-11-24", "order": 1, "html": "<p>매달 마지막 영업일에 매출 숫자를 확정하는 것. 정우성 대리가 정리한다.<\/p>\n<ul>\n<li>매출 파일: 공유드라이브 &gt; 영업지원팀 &gt; 매출 &gt; 월별매출.xlsx<\/li>\n<\/ul>\n<h2>기록<\/h2>\n<ul>\n<li>2026-11-24 (메모: 04_모르는단어) 뜻과 담당자 확인<\/li>\n<li>2026-11-24 (카톡: 영업지원팀) 매출 파일 위치 확인 (월별매출.xlsx)<\/li>\n<li>2026-11-24 (카톡: 영업지원팀) 12월부터 거래처별 시트 정리를 도와주기로 함 (정우성 대리 요청)<\/li>\n<\/ul>\n<h2>관련<\/h2>\n<ul>\n<li><a class=\"wl\" href=\"#\" data-page=\"영업지원팀\">영업지원팀<\/a><\/li>\n<\/ul>", "text": "매달 마지막 영업일에 매출 숫자를 확정하는 것. 정우성 대리가 정리한다. 매출 파일: 공유드라이브 > 영업지원팀 > 매출 > 월별매출.xlsx 기록 2026-11-24 (메모: 04_모르는단어) 뜻과 담당자 확인 2026-11-24 (카톡: 영업지원팀) 매출 파일 위치 확인 (월별매출.xlsx) 2026-11-24 (카톡: 영업지원팀) 12월부터 거래처별 시트 정리를 도와주기로 함 (정우성 대리 요청) 관련 영업지원팀"}, {"title": "품의", "category": "terms", "updated": "2026-11-24", "order": 1, "html": "<p>돈을 쓰기 전에 올리는 결재. <a class=\"wl\" href=\"#\" data-page=\"그룹웨어\">그룹웨어<\/a> 결재 메뉴에서 \"품의서\"로 올린다.<\/p>\n<h2>기록<\/h2>\n<ul>\n<li>2026-11-24 (메모: 04_모르는단어) 뜻과 올리는 곳 확인<\/li>\n<\/ul>\n<h2>관련<\/h2>\n<ul>\n<li><a class=\"wl\" href=\"#\" data-page=\"그룹웨어\">그룹웨어<\/a><\/li>\n<\/ul>", "text": "돈을 쓰기 전에 올리는 결재. 그룹웨어 결재 메뉴에서 \"품의서\"로 올린다. 기록 2026-11-24 (메모: 04_모르는단어) 뜻과 올리는 곳 확인 관련 그룹웨어"}, {"title": "연차 신청", "category": "work", "updated": "2026-11-24", "order": 1, "html": "<ol>\n<li><a class=\"wl\" href=\"#\" data-page=\"그룹웨어\">그룹웨어<\/a> &gt; 근태 &gt; 연차신청에서 신청<\/li>\n<li>박지훈 팀장 승인이 나면 끝\n- 최소 3일 전에 올린다.<\/li>\n<\/ol>\n<h2>기록<\/h2>\n<ul>\n<li>2026-11-24 (카톡: 영업지원팀) 이서연 선임이 절차 안내<\/li>\n<\/ul>\n<h2>관련<\/h2>\n<ul>\n<li><a class=\"wl\" href=\"#\" data-page=\"그룹웨어\">그룹웨어<\/a><\/li>\n<li><a class=\"wl\" href=\"#\" data-page=\"영업지원팀\">영업지원팀<\/a><\/li>\n<\/ul>", "text": "그룹웨어 > 근태 > 연차신청에서 신청 박지훈 팀장 승인이 나면 끝 - 최소 3일 전에 올린다. 기록 2026-11-24 (카톡: 영업지원팀) 이서연 선임이 절차 안내 관련 그룹웨어 영업지원팀"}, {"title": "주간보고", "category": "work", "updated": "2026-11-24", "order": 1, "html": "<ul>\n<li>마감: 매주 금요일 17시<\/li>\n<li>받는 사람: 박지훈 팀장 (메일)<\/li>\n<li>양식: 공유드라이브 &gt; 영업지원팀 &gt; 양식 &gt; 주간보고_양식.xlsx<\/li>\n<li>구성: 이번 주 한 일 / 다음 주 할 일 / 이슈<\/li>\n<\/ul>\n<h2>기록<\/h2>\n<ul>\n<li>2026-11-24 (메모: 03_주간보고) 이서연 선임에게 작성 방법을 배움, 첫 보고는 11/28(금)<\/li>\n<\/ul>\n<h2>관련<\/h2>\n<ul>\n<li><a class=\"wl\" href=\"#\" data-page=\"영업지원팀\">영업지원팀<\/a><\/li>\n<\/ul>", "text": "마감: 매주 금요일 17시 받는 사람: 박지훈 팀장 (메일) 양식: 공유드라이브 > 영업지원팀 > 양식 > 주간보고_양식.xlsx 구성: 이번 주 한 일 / 다음 주 할 일 / 이슈 기록 2026-11-24 (메모: 03_주간보고) 이서연 선임에게 작성 방법을 배움, 첫 보고는 11/28(금) 관련 영업지원팀"}], "categories": [["accounts", "계정·시스템"], ["work", "업무 절차"], ["people", "사람·담당자"], ["terms", "용어·약어"], ["projects", "프로젝트"], ["journal", "업무 일지"]], "home": "목차", "site": "업무 위키", "built": "2026-11-24 15:36"};
+var byTitle = {};
+DATA.pages.forEach(function (p) { byTitle[p.title] = p; });
+var current = DATA.home;
+var nav = document.getElementById("nav");
+var doc = document.getElementById("doc");
+var q = document.getElementById("q");
+document.getElementById("built").textContent = "빌드 " + DATA.built;
+
+function esc(s) {
+  return s.replace(/[&<>"]/g, function (c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+  });
+}
+
+function link(p, extra) {
+  return '<a href="#" data-page="' + esc(p.title) + '"' + (p.title === current ? ' class="on"' : "") +
+    ">" + esc(p.title) + (extra || "") + "</a>";
+}
+
+function snippet(text, term) {
+  var i = text.toLowerCase().indexOf(term);
+  if (i < 0) return "";
+  var s = Math.max(0, i - 18), e = Math.min(text.length, i + term.length + 30);
+  var part = text.slice(s, e);
+  var j = i - s;
+  return '<span class="hit">' + (s > 0 ? "…" : "") + esc(part.slice(0, j)) + "<mark>" +
+    esc(part.slice(j, j + term.length)) + "</mark>" + esc(part.slice(j + term.length)) +
+    (e < text.length ? "…" : "") + "</span>";
+}
+
+function drawNav() {
+  var term = q.value.trim().toLowerCase();
+  var out = "";
+  if (!term) out += link(byTitle[DATA.home]);
+  var groups = DATA.categories.slice();
+  var known = {};
+  groups.forEach(function (g) { known[g[0]] = true; });
+  DATA.pages.forEach(function (p) {
+    if (p.category !== "home" && !known[p.category]) { known[p.category] = true; groups.push([p.category, p.category]); }
+  });
+  var total = 0;
+  groups.forEach(function (g) {
+    var list = DATA.pages.filter(function (p) {
+      if (p.category !== g[0]) return false;
+      if (!term) return true;
+      return p.title.toLowerCase().indexOf(term) >= 0 || p.text.toLowerCase().indexOf(term) >= 0;
+    });
+    if (g[0] === "journal") list.sort(function (a, b) { return a.title < b.title ? 1 : -1; });
+    else list.sort(function (a, b) { return (a.order - b.order) || a.title.localeCompare(b.title, "ko"); });
+    if (!list.length) return;
+    total += list.length;
+    out += "<h2>" + esc(g[1]) + " (" + list.length + ")</h2>";
+    list.forEach(function (p) {
+      var extra = term && p.title.toLowerCase().indexOf(term) < 0 ? snippet(p.text, term) : "";
+      out += link(p, extra);
+    });
+  });
+  if (term && !total) out = '<div class="empty">"' + esc(q.value.trim()) + '" 검색 결과 없음</div>';
+  nav.innerHTML = out;
+}
+
+function show(title, push) {
+  var p = byTitle[title];
+  if (!p) return;
+  current = title;
+  var meta = p.updated ? "최종 수정 " + esc(p.updated) : "";
+  doc.innerHTML = '<h1 class="title">' + esc(p.title) + "</h1>" +
+    '<div class="meta">' + meta + "</div>" + p.html;
+  drawNav();
+  document.querySelector("main").scrollTop = 0;
+  document.title = p.title + " - " + DATA.site;
+  if (push !== false) history.replaceState(null, "", "#" + encodeURIComponent(title));
+}
+
+document.addEventListener("click", function (e) {
+  var a = e.target.closest("a[data-page]");
+  if (!a) return;
+  e.preventDefault();
+  show(a.getAttribute("data-page"));
+});
+document.getElementById("home").addEventListener("click", function () { q.value = ""; show(DATA.home); });
+q.addEventListener("input", drawNav);
+q.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") { var a = nav.querySelector("a[data-page]"); if (a) show(a.getAttribute("data-page")); }
+  if (e.key === "Escape") { q.value = ""; drawNav(); }
+});
+
+var start = decodeURIComponent(location.hash.slice(1));
+show(byTitle[start] ? start : DATA.home, false);
+</script>
+</body>
+</html>
